@@ -49,11 +49,7 @@ int main() {
     char args[3];
     char order[6];
 
-    puts("*********************************");
-    puts("**********  UAS ALPRO  **********");
-    puts("**** Albertus Ivan Suryawan *****");
-    puts("********** 2008561093 ***********");
-    puts("*********************************");
+    puts("Array Sorter");
 
     int choice=0;
     do {
@@ -71,11 +67,11 @@ int main() {
         puts("(8) min");
         puts("(9) max");
         puts("(10) average");
-        puts("(11) ganjil");
-        puts("(12) genap");
+        puts("(11) odd");
+        puts("(12) even");
         puts("(13) exit");
         puts("");
-        printf("Masukkan pilihan berupa angka (1, 2, dst..): ");
+        printf("Enter your choice (1, 2, dst..): ");
         scanf("%d", &choice);
 
         cls();
@@ -83,54 +79,54 @@ int main() {
 
         if (isInit) {
             if (choice == 1) {
-                printf("Masukan jumlah bilangan [max: 20]: "); scanf("%d", &arrLen);
-                printf("Masukan tipe bilangan [n/p]: "); scanf("%s", args);
+                printf("Enter the maximum size for the array [max: 20]: "); scanf("%d", &arrLen);
+                printf("Enter the type of number used [n for normal/p for prime]: "); scanf("%s", args);
                 init(arr, arrLen, args);
                 isInit = 1;
             }
 
             if (choice == 2) {
                 printf("Sorting Algorithm\n[1] Bubble Sort\n[2] Selection Sort\n[3] Insertion Sort\n");
-                printf("Masukkan jenis algoritma yang digunakan [1, 2, 3]: ");
+                printf("Enter the type of algorithm to be used [1, 2, 3]: ");
                 scanf("%d", &mode);
-                printf("\nPengurutan\n[asc] Ascending\n[desc] Descending\n");
-                printf("\nMasukkan jenis pengurutan [asc/desc]: ");
+                printf("\nSorting\n[asc] Ascending\n[desc] Descending\n");
+                printf("\nEnter the type of sorting to be used [asc/desc]: ");
                 scanf("%s", order);
                 sort(arr, arrLen, order, mode);
             }
 
             if (choice == 3) {
-                printf("\nMasukkan nilai yang ingin dicari: ");
+                printf("\nEnter a value to be searched: ");
                 scanf("%d", &num1);
                 search(arr, arrLen, num1);
                 printf("\n");
             }
 
             if (choice == 4) {
-                printf("Masukkan nilai untuk dimasukkan: ");
+                printf("Enter a number to be inserted: ");
                 scanf("%d", &num1);
-                printf("\nPengurutan\n[asc] Ascending\n[desc] Descending\n");
-                printf("Masukkan jenis pengurutan [asc/desc]: ");
+                printf("\nSorting\n[asc] Ascending\n[desc] Descending\n");
+                printf("Enter the type of sorting to be used [asc/desc]: ");
                 scanf("%s", order);
                 insert(arr, arrLen, num1, order);
             }
 
             if (choice == 5) {
-                printf("Masukkan nilai yang lama: ");
+                printf("Enter the old value: ");
                 scanf("%d", &num1);
-                printf("Masukkan nilai yang baru: ");
+                printf("Enter the new value: ");
                 scanf("%d", &num2);
-                printf("\nPengurutan\n[asc] Ascending\n[desc] Descending\n");
-                printf("Masukkan jenis pengurutan [asc/desc]: ");
+                printf("\nSorting\n[asc] Ascending\n[desc] Descending\n");
+                printf("Enter the type of sorting to be used [asc/desc]: ");
                 scanf("%s", order);
                 update(arr, arrLen, num2, num1, order);
             }
 
             if (choice == 6) {
-                printf("Masukkan nilai untuk dihapus: ");
+                printf("Enter a value to be removed: ");
                 scanf("%d", &num1);
-                printf("\nPengurutan\n[asc] Ascending\n[desc] Descending\n");
-                printf("Masukkan jenis pengurutan [asc/desc]: ");
+                printf("\nSorting\n[asc] Ascending\n[desc] Descending\n");
+                printf("Enter the type of sorting to be used [asc/desc]: ");
                 scanf("%s", order);
                 delete(arr, arrLen, num1, order);
             }
@@ -162,12 +158,12 @@ int main() {
             cls();
         } else {
             if (choice == 1) {
-                printf("Masukan jumlah bilangan [max: 20]: "); scanf("%d", &arrLen);
-                printf("Masukan tipe bilangan [n/p]: "); scanf("%s", args);
+                printf("Enter the maximum size for the array [max: 20]: "); scanf("%d", &arrLen);
+                printf("Enter the type of number used [n for normal/p for prime]: "); scanf("%s", args);
                 init(arr, arrLen, args);
                 isInit = 1;
             } else {
-                printError("menu", "Jalankan menu INIT terlebih dahulu!");
+                printError("menu", "Please run the INIT command beforehand!");
             }
             getch();
             cls();
@@ -253,7 +249,7 @@ void sort(int sortArr[], int size, char *sortOrder, int sortMethod) {
         msgMethod = "Insertion";
     }
     char msg[30];
-    snprintf(msg, sizeof(msg), "Methode: %s (%s)\n", msgMethod, sortOrder);
+    snprintf(msg, sizeof(msg), "Method: %s (%s)\n", msgMethod, sortOrder);
     printInfo("sort", msg);
     printArray(sortArr, size, "sort");
 }
@@ -314,9 +310,9 @@ void search(int arr[], int size, int num) {
     printInfo("input", msg);
     sort(arr, size, "asc", 1);
     int res = binSearch(arr, size, num);
-    if (res == -1) printError("search", "Tidak ada!");
+    if (res == -1) printError("search", "Not Found!");
     char msgInfo[50];
-    snprintf(msgInfo, sizeof(msgInfo), "%d ditemukan pada indeks ke-%d\n", arr[res], res);
+    snprintf(msgInfo, sizeof(msgInfo), "%d is founded on the %dth element\n", arr[res], res);
     printInfo("search", msgInfo);
 }
 
@@ -345,7 +341,7 @@ void insert(int arr[], int size, int num, char *sortOrder) {
     char msgInfo[20];
     snprintf(msgInfo, sizeof(msgInfo), "insert(%d, %s)\n", num, sortOrder);
     printInfo("input", msgInfo);
-    if (size == ARRLIMIT) printError("insert", "Index Penuh!");
+    if (size == ARRLIMIT) printError("insert", "Array is Full!");
     arr[size] = num;
     int order = 1;
     int len = arrCount(arr); // Recheck the size after modification
@@ -377,7 +373,7 @@ void delete(int arr[], int size, int num, char *sortOrder) {
     bSort(arr, size, 1);
     int res = binSearch(arr, size, num);
     if (res == -1) {
-        snprintf(delMsg, sizeof(delMsg), "Tidak ada elemen %d didalam array", num);
+        snprintf(delMsg, sizeof(delMsg), "There is no %d found in the array", num);
         printError("delete", delMsg);
     }
     arr[res] = 0;
@@ -403,7 +399,7 @@ void arrMax(int arr[], int size) {
     printInfo("input", msgInfo);
     bSort(arr, size, 1);
     char maxMsg[50];
-    snprintf(maxMsg, sizeof(maxMsg), "Nilai maksimum dari array ini adalah %d\n", arr[size-1]);
+    snprintf(maxMsg, sizeof(maxMsg), "The maximum value of this array is %d\n", arr[size-1]);
     printInfo("max", maxMsg);
 }
 
@@ -413,7 +409,7 @@ void arrMin(int arr[], int size) {
     printInfo("input", msgInfo);
     bSort(arr, size, 1);
     char minMsg[50];
-    snprintf(minMsg, sizeof(minMsg), "Nilai minimum dari array ini adalah %d\n", arr[0]);
+    snprintf(minMsg, sizeof(minMsg), "The minimum value of this array is %d\n", arr[0]);
     printInfo("min", minMsg);
 }
 
@@ -424,13 +420,13 @@ void avg(int arr[], int size) {
     double sum = 0;
     for (int i=0; i<size; i++) sum += arr[i];
     char avgMsg[50];
-    snprintf(avgMsg, sizeof(avgMsg), "Nilai rata-rata dari array ini adalah %.2f\n", (double)sum/size);
+    snprintf(avgMsg, sizeof(avgMsg), "The average value of this array is %.2f\n", (double)sum/size);
     printInfo("avg", avgMsg);
 }
 
 void odd(int arr[], int size) {
     char msgInfo[20];
-    snprintf(msgInfo, sizeof(msgInfo), "ganjil(arr)\n");
+    snprintf(msgInfo, sizeof(msgInfo), "odd(arr)\n");
     printInfo("input", msgInfo);
     int oddCount = 0;
     int oddArr[20];
@@ -443,13 +439,13 @@ void odd(int arr[], int size) {
     }
     for (int j=oddCount; j<ARRLIMIT; j++) oddArr[j] = 0;
     printArray(oddArr, oddCount, "odd");
-    snprintf(oddMsg, sizeof(oddMsg), "Terdapat %d elemen ganjil didalam array\n", arrCount(oddArr));
+    snprintf(oddMsg, sizeof(oddMsg), "There are %d odd element in this array\n", arrCount(oddArr));
     printInfo("odd", oddMsg);
 }
 
 void even(int arr[], int size) {
     char msgInfo[20];
-    snprintf(msgInfo, sizeof(msgInfo), "genap(arr)\n");
+    snprintf(msgInfo, sizeof(msgInfo), "even(arr)\n");
     printInfo("input", msgInfo);
     int evenCount = 0;
     int evenArr[20];
@@ -462,7 +458,7 @@ void even(int arr[], int size) {
     }
     for (int j=evenCount; j<ARRLIMIT; j++) evenArr[j] = 0;
     printArray(evenArr, evenCount, "even");
-    snprintf(evenMsg, sizeof(evenMsg), "Terdapat %d elemen genap didalam array\n", arrCount(evenArr));
+    snprintf(evenMsg, sizeof(evenMsg), "There are %d even element in this array\n", arrCount(evenArr));
     printInfo("even", evenMsg);
 
 }
@@ -488,8 +484,8 @@ void swap(int *xp, int *yp) {
 };
 
 void printError(char *cmd, char *msg) {
-    printf("[ERROR] %s di %s\n", msg, cmd);
-    fprintf(logFile, "[ERROR] %s di %s\n", msg, cmd);
+    printf("[ERROR] %s in %s\n", msg, cmd);
+    fprintf(logFile, "[ERROR] %s in %s\n", msg, cmd);
     getch();
     cls();
     main();
